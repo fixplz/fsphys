@@ -70,7 +70,7 @@ let update cfg s =
   
   for _ in 1 .. cfg.iters do
     for ct in contacts do
-      ct.app 0.
+      ct.app_corr ()
   
   for _ in 1 .. cfg.iters do
     for ct in contacts do

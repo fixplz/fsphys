@@ -38,7 +38,7 @@ let force ct = vec(ct.jnacc,ct.jtacc)
 
 type worker =
   { app_acc : unit->unit
-    app : scalar->unit
+    app_corr : unit->unit
     app_elastic : unit->unit
     }
 
