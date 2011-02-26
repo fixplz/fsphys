@@ -8,7 +8,7 @@ open shape
 let (+>) v f = Option.bind f v
 let enum a = Seq.zip (Seq.initInfinite id) a
 
-type collision = { pts:(vec*int) array; n:vec; dist:scalar }
+type t = { pts:(vec*int) array; n:vec; dist:scalar }
 
 let flipcol c = { c with n = -c.n }
 

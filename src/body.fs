@@ -21,14 +21,15 @@ type [<ReferenceEquality>] t =
 
 
 let create density shapes pos ang =
+  
+  for s in shapes do shape.update pos ang s
+  
   let area,inertia =
     if density<>infinity then
       shapes
       |> Seq.map shape.props
       |> Seq.reduce (fun (a,i) (a',i') -> a+a',i+i')
     else 1.,1.
-  
-  for s in shapes do shape.update pos ang s
   
   { pos  = pos;   ang   = ang
     vel  = vec(); rot   = 0.

@@ -27,11 +27,18 @@ type config =
 
 
 type t =
-  { mutable jnacc:scalar
+  { a:body.t; b:body.t
+    mutable p:vec
+    mutable stamp:int
+    mutable jnacc:scalar
     mutable jtacc:scalar
     }
 
-let get () = { jnacc=0.; jtacc=0. }
+let make a b =
+  { a=a; b=b; p=vec()
+    stamp=0
+    jnacc=0.; jtacc=0.
+    }
 
 let force ct = vec(ct.jnacc,ct.jtacc)
 

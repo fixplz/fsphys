@@ -52,7 +52,7 @@ let update () = (!p).update()
 
 let draw (g:Graphics) =
   
-  let s = (!p).data
+  let d = (!p).dump
   
   let line = new Pen(Brushes.Black)
   let green = Brushes.Green
@@ -61,7 +61,7 @@ let draw (g:Graphics) =
   
   g.Clear(Color.White)
   
-  for b in (!p).data.bodies do
+  for b in d.bodies do
   for s in b.shapes do
     match s with
     | shape.Poly p ->
@@ -72,10 +72,10 @@ let draw (g:Graphics) =
         g.DrawEllipse(line,
           RectangleF(pointf (c.center -| r), SizeF(pointf (2. .* r))) )
 
-  (*for ct in s.contacts do
-    let s = 5. in let r = vec(s,s)
+  for ct in d.contacts.Values do
+    let r = let s = 5. in vec(s,s)
     g.FillEllipse(green,
-      RectangleF(pointf (ct.p-|0.5.*r), SizeF(pointf r)) )*)
+      RectangleF(pointf (ct.p-|0.5.*r), SizeF(pointf r)) )
 
 
 type Main =

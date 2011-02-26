@@ -8,14 +8,12 @@ open space
 
 
 module def =
-  type circle = { center:vec; radius:scalar }
-  type poly = { verts:vec array }
-  type shape = Poly of poly | Circle of circle
+  type shape = Poly of vec array | Circle of vec*scalar
   
-  let poly vs    = Poly { verts = vs }
-  let circle r c = Circle { radius = r; center = c }
+  let poly vs    = Poly (Array.ofSeq vs)
+  let circle r c = Circle (c,r)
   
-  type body =
+  type body = 
     { shapes:shape seq
       density:scalar
       }
@@ -24,12 +22,12 @@ module def =
     body.create b.density
       [| for s in b.shapes ->
            match s with
-           | Poly p -> shape.poly p.verts
-           | Circle c -> shape.circle c.radius c.center
+           | Poly vs      -> shape.poly vs
+           | Circle (c,r) -> shape.circle r c
          |]
       pos ang
   
-  let body d s = { shapes = s; density = d }
+  let body d s      = { shapes = s; density = d }
   let body_static s = { shapes = s; density = infinity }
 
 
@@ -52,7 +50,7 @@ type main(cfg) =
   let actions = ResizeArray()
   let action = actions.Add
   
-  member p.data = s
+  member p.dump = s
   
   member p.update() =
     
